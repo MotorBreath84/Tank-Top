@@ -52,6 +52,14 @@ let bombY=150;
 let bombSpeed=0.1;
 let bombStart=800;
 
+let bomb2 =new Image();
+bomb2.src="images/bomb.png";
+let bombWidth2=70;
+let bombHeight2=40;
+let bomb2X=800;
+let bomb2Y=150;
+let bombSpeed2=0;
+
 window.onload =() => {
 
   canvas.style.display="none";
@@ -119,7 +127,9 @@ window.onload =() => {
         ctx.drawImage(pipe,pipeX,pipeY,pipeWidth,pipeHeight);
         ctx.drawImage(tank,tankX,tankY,tankWidth,tankHeight);
         ctx.drawImage(bomb,bombX,bombY,bombWidth,bombHeight);
+        ctx.drawImage(bomb2,bomb2X,bomb2Y,bombWidth2,bombHeight2);
         bombX-=bombSpeed;
+        bomb2X-=bombSpeed2;
         circleX=circleSpeedX*time;
         circleY=270-circleSpeedY*time+(0.5*600*(time**2));
 
@@ -129,16 +139,29 @@ window.onload =() => {
             score++;
             document.querySelector('#score').innerHTML=score;
         }
+
+        if(circleX+circleWidth>bomb2X && circleX<bomb2X+bombWidth2 && circleY<bomb2Y+bombHeight2 && circleY+circleHeight>bomb2Y){
+          bomb2X=bombStart;
+          bomb2Y=Math.floor(Math.random()*(240-10+1)+10);
+          score++;
+          document.querySelector('#score').innerHTML=score;
+      }
         
         switch(score){
           case 10:
-            bombSpeed=0.4;
+            bombSpeed2=bombSpeed;
             break;
           case 20:
-            bombSpeed=0.8;
+            bombSpeed=0.4;
+            bombSpeed2=bombSpeed;
             break;
           case 30:
+            bombSpeed=0.8;
+            bombSpeed2=bombSpeed;
+            break;
+          case 40:
             bombSpeed=2;
+            bombSpeed2=bombSpeed;
             break;
         }
 
@@ -155,7 +178,7 @@ window.onload =() => {
           ul.innerHTML=arr1;
         }
 
-        if(bombX<1){
+        if(bombX<1 || bomb2X<1){
             isGameOver=true;
         }
 
