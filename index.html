@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Tank Top</title>
+  </head>
+  <body>
+    <section>
+        <div id="area">
+          <div class="controls">
+            <p>Score: <span id="score">0</span></p>
+          </div>
+          <div class="controls">
+            <div class="buttons">
+              <input type="image" id="up-angle" src="./images/up.png" />
+              <input type="image" id="down-angle" src="./images/down.png" />
+            </div>
+            <p>Angle: <span id="angle">45</span></p>
+          </div>
+          <button id="shoot">Shoot</button>
+        </div>
+        <div>
+            <div id="start-screen"><button id="start-button">Start</button></div>
+            <canvas id="canvas"></canvas>
+            <div id="gameover"></div>
+        </div>
+    </section>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
