@@ -52,7 +52,7 @@ let bombWidth=70;
 let bombHeight=40;
 let bombX=800;
 let bombY=150;
-let bombSpeed=10.1;
+let bombSpeed=0.1;
 let bombStart=800;
 
 let bomb2 =new Image();
