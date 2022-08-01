@@ -95,6 +95,10 @@ window.onload =() => {
           angle+=5;
         }
         document.querySelector('#angle').innerHTML=angle;
+        if(event.code === "Space"){
+            event.preventDefault();
+            document.querySelector('#shoot').click();
+        }
 
       });
 
@@ -124,6 +128,9 @@ window.onload =() => {
         bombX=800;
         bombY=150;
         bombSpeed=0.1;
+        bomb2X=800;
+        bomb2Y=0;
+        bombSpeed2=0.1;
         score=0;
         isGameOver=false;
         canvas.style.display="block";
