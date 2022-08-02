@@ -6,8 +6,7 @@ let startScreen = document.querySelector("#start-screen");
 let gameOver = document.querySelector("#gameover");
 let ul = document.querySelector('ul');
 let pName ="";
-let arr = Array.apply( null, { length: 10 } );
-let arr1="";
+let arr=[];
 
 let powaudio=new Audio('sounds/explosion.mp3');
 let theme = new Audio('sounds/jaws.mp3');
@@ -26,13 +25,13 @@ tank.src="images/tank.png";
 let tankWidth=50;
 let tankHeight=30;
 let tankX=-20;
-let tankY=270;
+let tankY=260;
 
 let pipe =new Image();
 pipe.src="images/pipe.png";
-let pipeWidth=60;
-let pipeHeight=60;
-let pipeX=-20;
+let pipeWidth=30;
+let pipeHeight=10;
+let pipeX=0;
 let pipeY=250;
 let angle=45;
 
@@ -41,7 +40,7 @@ circle.src="images/circle.png";
 let circleWidth=10;
 let circleHeight=10;
 let circleX=0;
-let circleY=300;
+let circleY=350;
 let circleSpeed=0;
 let circleSpeedX=0;
 let circleSpeedY=0;
@@ -125,12 +124,10 @@ window.onload =() => {
       document.getElementById('restart').onclick = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         gameOver.style.display="none";
-        bombX=800;
-        bombY=150;
-        bombSpeed=0.1;
-        bomb2X=800;
-        bomb2Y=0;
-        bombSpeed2=0.1;
+        [bombX,bombY]=[800,150];
+        [bombSpeed,bombSpeed2]=[0.1,0];
+        [bomb2X,bomb2Y]=[800,0];
+        [circleX,circleY]=[0,350];
         score=0;
         isGameOver=false;
         canvas.style.display="block";
@@ -150,11 +147,20 @@ window.onload =() => {
             powaudio.currentTime = 0;},1000);
       }
 
+      function drawRotated(degrees){
+        
+        ctx.save();
+        ctx.translate(canvas.width/35,canvas.height/1.1);
+        ctx.rotate(-degrees*Math.PI/180);
+        ctx.drawImage(pipe,-pipeWidth/2,-pipeWidth/3,pipeWidth,pipeHeight);
+        ctx.restore();
+    }
+      
       function startGame(){
         theme.play();
         ctx.drawImage(background,0,0, canvas.width, canvas.height);
         ctx.drawImage(circle,circleX,circleY,circleWidth,circleHeight);
-        ctx.drawImage(pipe,pipeX,pipeY,pipeWidth,pipeHeight);
+        drawRotated(angle);
         ctx.drawImage(tank,tankX,tankY,tankWidth,tankHeight);
         ctx.drawImage(bomb,bombX,bombY,bombWidth,bombHeight);
         ctx.drawImage(bomb2,bomb2X,bomb2Y,bombWidth2,bombHeight2);
@@ -198,16 +204,33 @@ window.onload =() => {
             break;
         }
 
+        function sortscore(arr){
+          arr.sort((a, b) => {
+            if (a.score < b.score) {
+              return 1;
+            } else if (a.score > b.score) {
+              return -1;
+            } else {
+              return 0;
+            }
+          })
+          .map((e) => e.score)
+          .slice(0, 10);
+          return arr;
+        }
+
         function lastScores() {
+          let arr2=[];
           let li =document.createElement('li');
-          li.innerText=`${pName} - ${score}`;
-          arr.unshift(li);
-          arr.pop();
-          arr1="";
-          arr.forEach( e => {
-            if(e){arr1+=e.outerHTML}
+          let obj={'name':pName, 'score':score};
+          arr.unshift(obj);
+          arr2=sortscore(arr);
+          let arr1="";
+          arr2.forEach( e => {
+            if(e){
+              li.innerText=`${e.name} - ${e.score}`;
+              arr1+=li.outerHTML;}
           });
-          
           ul.innerHTML=arr1;
         }
 
