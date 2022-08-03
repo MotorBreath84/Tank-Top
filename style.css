@@ -1,5 +1,5 @@
 body {
-    width:1300px;
+    width:auto;
     margin:20px 0;
     font-family: 'Calibri', 'Trebuchet MS';
     font-weight: bold;
@@ -9,7 +9,7 @@ section {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
 } 
 
 .buttons {
@@ -24,7 +24,6 @@ input {
 }
 
 #area {
-    text-align: center;
     width: 200px;
     height: 300px;
     background-image: url("images/manual.jpg");
