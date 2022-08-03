@@ -68,7 +68,7 @@ let ltanWidth=85;
 let ltanHeight=55;
 let ltanX=1200;
 let ltanY=235;
-let ltanSpeed=0.2;
+let ltanSpeed=0;
 
 let pow =new Image();
 pow.src="images/pow.png";
