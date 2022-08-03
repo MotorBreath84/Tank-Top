@@ -137,13 +137,13 @@ window.onload =() => {
         [bombSpeed,bombSpeed2, ltanSpeed]=[0.1,0,0];
         ltanX=900;
         [bomb2X,bomb2Y]=[800,0];
-        clearcircle();
         score=0;
         document.querySelector('#score').innerHTML=score;
         isGameOver=false;
         canvas.style.display="block";
         pName = String(document.querySelector('#pname2').value);
         startGame();
+
       };
 
       function explode(x,y){
@@ -197,19 +197,23 @@ window.onload =() => {
         switch(score){
           case 10:
             bombSpeed2=bombSpeed;
+            document.querySelector('#Level').innerHTML=2;
             break;
           case 20:
             bombSpeed=0.4;
             bombSpeed2=bombSpeed;
             ltanSpeed=0.15;
+            document.querySelector('#Level').innerHTML=3;
             break;
           case 30:
             bombSpeed=0.8;
             bombSpeed2=bombSpeed;
+            document.querySelector('#Level').innerHTML=4;
             break;
           case 40:
             bombSpeed=2;
             bombSpeed2=bombSpeed;
+            document.querySelector('#Level').innerHTML=5;
             break;
         }
 
@@ -275,7 +279,6 @@ window.onload =() => {
 
         if(isGameOver){
           cancelAnimationFrame(intervalId);
-          clearInterval(nIntervId);
           lastScores();
           canvas.style.display="none";
           startScreen.style.display="none";
