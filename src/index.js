@@ -66,7 +66,7 @@ let ltan =new Image();
 ltan.src="images/ltan.gif";
 let ltanWidth=85;
 let ltanHeight=55;
-let ltanX=1200;
+let ltanX=900;
 let ltanY=235;
 let ltanSpeed=0;
 
@@ -134,9 +134,10 @@ window.onload =() => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         gameOver.style.display="none";
         [bombX,bombY]=[800,150];
-        [bombSpeed,bombSpeed2]=[0.1,0];
+        [bombSpeed,bombSpeed2, ltanSpeed]=[0.1,0,0];
+        ltanX=900;
         [bomb2X,bomb2Y]=[800,0];
-        [circleX,circleY]=[0,350];
+        clearcircle();
         score=0;
         document.querySelector('#score').innerHTML=score;
         isGameOver=false;
@@ -182,11 +183,15 @@ window.onload =() => {
         circleX=circleSpeedX*time;
         circleY=270-circleSpeedY*time+(0.5*600*(time**2));
 
-        if(circleX>=780){
+        function clearcircle(){
           clearInterval(nIntervId);
           circleX=0;
           circleY=300;
           ctx.drawImage(circle,circleX,circleY,circleWidth,circleHeight);
+        }
+
+        if(circleX>=790){
+          clearcircle();
         }
 
         switch(score){
@@ -196,11 +201,11 @@ window.onload =() => {
           case 20:
             bombSpeed=0.4;
             bombSpeed2=bombSpeed;
+            ltanSpeed=0.15;
             break;
           case 30:
             bombSpeed=0.8;
             bombSpeed2=bombSpeed;
-            ltanSpeed=0.2;
             break;
           case 40:
             bombSpeed=2;
@@ -245,7 +250,7 @@ window.onload =() => {
 
         if(circleX+circleWidth>bombX && circleX<bombX+bombWidth && circleY<bombY+bombHeight && circleY+circleHeight>bombY){
           explode(bombX,bombY);
-          bombX=bombStart+(bombSpeed*1000);
+          bombX=bombStart;
           bombY=Math.floor(Math.random()*(240-10+1)+10);
           score++;
           document.querySelector('#score').innerHTML=score;
@@ -253,7 +258,7 @@ window.onload =() => {
 
       if(circleX+circleWidth>bomb2X && circleX<bomb2X+bombWidth2 && circleY<bomb2Y+bombHeight2 && circleY+circleHeight>bomb2Y){
         explode(bomb2X,bomb2Y);
-        bomb2X=bombStart+(bombSpeed*1000);
+        bomb2X=bombStart;
         bomb2Y=Math.floor(Math.random()*(240-10+1)+10);
         score++;
         document.querySelector('#score').innerHTML=score;
@@ -261,7 +266,7 @@ window.onload =() => {
 
       if(circleX+circleWidth>ltanX && circleX<ltanX+ltanWidth && circleY<ltanY+ltanHeight && circleY+circleHeight>ltanY){
         explode(ltanX,ltanY);
-        ltanX=1200;
+        ltanX=900;
         score++;
         document.querySelector('#score').innerHTML=score;
     }
