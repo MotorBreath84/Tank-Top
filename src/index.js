@@ -129,6 +129,7 @@ window.onload =() => {
         [bomb2X,bomb2Y]=[800,0];
         [circleX,circleY]=[0,350];
         score=0;
+        document.querySelector('#score').innerHTML=score;
         isGameOver=false;
         canvas.style.display="block";
         pName = String(document.querySelector('#pname2').value);
