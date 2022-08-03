@@ -44,6 +44,7 @@ input {
     height: 40px;
     background-color: lightblue;
     color: darkgreen;
+    margin-left: 60px
 }
 
 #start-screen {
