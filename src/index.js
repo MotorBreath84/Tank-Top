@@ -62,6 +62,14 @@ let bomb2X=800;
 let bomb2Y=150;
 let bombSpeed2=0;
 
+let ltan =new Image();
+ltan.src="images/ltan.gif";
+let ltanWidth=85;
+let ltanHeight=55;
+let ltanX=1200;
+let ltanY=235;
+let ltanSpeed=0.2;
+
 let pow =new Image();
 pow.src="images/pow.png";
 let powX=820;
@@ -111,6 +119,7 @@ window.onload =() => {
         circleSpeedY=Math.sin(angle*Math.PI/180)*circleSpeed;
         nIntervId=setInterval(()=>time+=0.01,10);
       };
+
 
     document.getElementById('start-button').onclick = () => {
         pName = String(document.querySelector('#pname').value);
@@ -165,27 +174,20 @@ window.onload =() => {
         ctx.drawImage(tank,tankX,tankY,tankWidth,tankHeight);
         ctx.drawImage(bomb,bombX,bombY,bombWidth,bombHeight);
         ctx.drawImage(bomb2,bomb2X,bomb2Y,bombWidth2,bombHeight2);
+        ctx.drawImage(ltan,ltanX,ltanY,ltanWidth,ltanHeight);
         ctx.drawImage(pow,powX,powY,bombWidth2,bombHeight2);
         bombX-=bombSpeed;
         bomb2X-=bombSpeed2;
+        ltanX-=ltanSpeed;
         circleX=circleSpeedX*time;
         circleY=270-circleSpeedY*time+(0.5*600*(time**2));
 
-        if(circleX+circleWidth>bombX && circleX<bombX+bombWidth && circleY<bombY+bombHeight && circleY+circleHeight>bombY){
-            explode(bombX,bombY);
-            bombX=bombStart;
-            bombY=Math.floor(Math.random()*(240-10+1)+10);
-            score++;
-            document.querySelector('#score').innerHTML=score;
+        if(circleX>=780){
+          clearInterval(nIntervId);
+          circleX=0;
+          circleY=300;
+          ctx.drawImage(circle,circleX,circleY,circleWidth,circleHeight);
         }
-
-        if(circleX+circleWidth>bomb2X && circleX<bomb2X+bombWidth2 && circleY<bomb2Y+bombHeight2 && circleY+circleHeight>bomb2Y){
-          explode(bomb2X,bomb2Y);
-          bomb2X=bombStart;
-          bomb2Y=Math.floor(Math.random()*(240-10+1)+10);
-          score++;
-          document.querySelector('#score').innerHTML=score;
-      }
 
         switch(score){
           case 10:
@@ -198,6 +200,7 @@ window.onload =() => {
           case 30:
             bombSpeed=0.8;
             bombSpeed2=bombSpeed;
+            ltanSpeed=0.2;
             break;
           case 40:
             bombSpeed=2;
@@ -235,10 +238,33 @@ window.onload =() => {
           ul.innerHTML=arr1;
         }
 
-        if(bombX<1 || bomb2X<1){
+        if(bombX<1 || bomb2X<1 || ltanX<30){
           theme.pause();
           isGameOver=true;
         }
+
+        if(circleX+circleWidth>bombX && circleX<bombX+bombWidth && circleY<bombY+bombHeight && circleY+circleHeight>bombY){
+          explode(bombX,bombY);
+          bombX=bombStart+(bombSpeed*1000);
+          bombY=Math.floor(Math.random()*(240-10+1)+10);
+          score++;
+          document.querySelector('#score').innerHTML=score;
+      }
+
+      if(circleX+circleWidth>bomb2X && circleX<bomb2X+bombWidth2 && circleY<bomb2Y+bombHeight2 && circleY+circleHeight>bomb2Y){
+        explode(bomb2X,bomb2Y);
+        bomb2X=bombStart+(bombSpeed*1000);
+        bomb2Y=Math.floor(Math.random()*(240-10+1)+10);
+        score++;
+        document.querySelector('#score').innerHTML=score;
+    }
+
+      if(circleX+circleWidth>ltanX && circleX<ltanX+ltanWidth && circleY<ltanY+ltanHeight && circleY+circleHeight>ltanY){
+        explode(ltanX,ltanY);
+        ltanX=1200;
+        score++;
+        document.querySelector('#score').innerHTML=score;
+    }
 
         intervalId=requestAnimationFrame(startGame);
 
