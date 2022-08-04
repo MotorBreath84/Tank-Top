@@ -4,7 +4,7 @@
 
 ## Description
 
-Tank Top is a game where the player command a tank deployed on the begining of the screen. On the left of the screen are the controls to select the angle of the shot and the shoot button, which also can be controlled with the up and down arrows and the spacebar. The objective of the game is to shoot down the enemies that comes to your direction and resist as much as you can.
+Tank Top is a game where the player command a tank deployed on the begining of the screen. On the left of the screen are the controls to select the angle of the shot and the shoot button, which can also be controlled with the up and down arrows and the spacebar. The objective of the game is to shoot down the enemies that comes to your direction and resist as much as you can.
 
 
 ## MVP
@@ -22,6 +22,10 @@ Tank Top is a game where the player command a tank deployed on the begining of t
 
 - add scoreboard
 
+## Data Structure
+
+- Enemy()
+- move()
 
 ## States y States Transitions
 

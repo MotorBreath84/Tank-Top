@@ -45,29 +45,33 @@ let circleSpeed=0;
 let circleSpeedX=0;
 let circleSpeedY=0;
 
+class Enemy{
+  constructor(width,height,x,y){
+    this.width=width;
+    this.height=height;
+    this.x=x;
+    this.y=y;
+  }
+
+  move(speed){
+    return this.x-=speed;}
+
+}
+
 let bomb =new Image();
 bomb.src="images/bomb.png";
-let bombWidth=70;
-let bombHeight=40;
-let bombX=800;
-let bombY=150;
+const bombP=new Enemy(70,40,800,150);
 let bombSpeed=0.1;
 let bombStart=800;
 
 let bomb2 =new Image();
 bomb2.src="images/bomb.png";
-let bombWidth2=70;
-let bombHeight2=40;
-let bomb2X=800;
-let bomb2Y=150;
+const bombP2=new Enemy(70,40,800,150);
 let bombSpeed2=0;
 
 let ltan =new Image();
 ltan.src="images/ltan.gif";
-let ltanWidth=85;
-let ltanHeight=55;
-let ltanX=900;
-let ltanY=235;
+const ltanP=new Enemy(85,55,900,235);
 let ltanSpeed=0;
 
 let pow =new Image();
@@ -133,10 +137,10 @@ window.onload =() => {
       document.getElementById('restart').onclick = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         gameOver.style.display="none";
-        [bombX,bombY]=[800,150];
+        [bombP.x,bombP.y]=[800,150];
         [bombSpeed,bombSpeed2, ltanSpeed]=[0.1,0,0];
-        ltanX=900;
-        [bomb2X,bomb2Y]=[800,0];
+        ltanP.x=900;
+        [bombP2.x,bombP2.y]=[800,0];
         score=0;
         document.querySelector('#score').innerHTML=score;
         document.querySelector('#Level').innerHTML=1;
@@ -174,13 +178,13 @@ window.onload =() => {
         ctx.drawImage(circle,circleX,circleY,circleWidth,circleHeight);
         drawRotated(angle);
         ctx.drawImage(tank,tankX,tankY,tankWidth,tankHeight);
-        ctx.drawImage(bomb,bombX,bombY,bombWidth,bombHeight);
-        ctx.drawImage(bomb2,bomb2X,bomb2Y,bombWidth2,bombHeight2);
-        ctx.drawImage(ltan,ltanX,ltanY,ltanWidth,ltanHeight);
-        ctx.drawImage(pow,powX,powY,bombWidth2,bombHeight2);
-        bombX-=bombSpeed;
-        bomb2X-=bombSpeed2;
-        ltanX-=ltanSpeed;
+        ctx.drawImage(bomb,bombP.x,bombP.y,bombP.width,bombP.height);
+        ctx.drawImage(bomb2,bombP2.x,bombP2.y,bombP2.width,bombP2.height);
+        ctx.drawImage(ltan,ltanP.x,ltanP.y,ltanP.width,ltanP.height);
+        ctx.drawImage(pow,powX,powY,bombP.width,bombP.height);
+        bombP.move(bombSpeed);
+        bombP2.move(bombSpeed2);
+        ltanP.move(ltanSpeed);
         circleX=circleSpeedX*time;
         circleY=270-circleSpeedY*time+(0.5*600*(time**2));
 
@@ -248,30 +252,32 @@ window.onload =() => {
           ul.innerHTML=arr1;
         }
 
-        if(bombX<1 || bomb2X<1 || ltanX<30){
+        if(bombP.x<1 || bombP2.x<1 || ltanP.x<30){
           theme.pause();
           isGameOver=true;
         }
 
-        if(circleX+circleWidth>bombX && circleX<bombX+bombWidth && circleY<bombY+bombHeight && circleY+circleHeight>bombY){
-          explode(bombX,bombY);
-          bombX=bombStart;
-          bombY=Math.floor(Math.random()*(240-10+1)+10);
+
+
+        if(circleX+circleWidth>bombP.x && circleX<bombP.x+bombP.width && circleY<bombP.y+bombP.height && circleY+circleHeight>bombP.y){
+          explode(bombP.x,bombP.y);
+          bombP.x=bombStart;
+          bombP.y=Math.floor(Math.random()*(240-10+1)+10);
           score++;
           document.querySelector('#score').innerHTML=score;
       }
 
-      if(circleX+circleWidth>bomb2X && circleX<bomb2X+bombWidth2 && circleY<bomb2Y+bombHeight2 && circleY+circleHeight>bomb2Y){
-        explode(bomb2X,bomb2Y);
-        bomb2X=bombStart;
-        bomb2Y=Math.floor(Math.random()*(240-10+1)+10);
+      if(circleX+circleWidth>bombP2.x && circleX<bombP2.x+bombP2.width && circleY<bombP2.y+bombP2.height && circleY+circleHeight>bombP2.y){
+        explode(bombP2.x,bombP2.y);
+        bombP2.x=bombStart;
+        bombP2.y=Math.floor(Math.random()*(240-10+1)+10);
         score++;
         document.querySelector('#score').innerHTML=score;
     }
 
-      if(circleX+circleWidth>ltanX && circleX<ltanX+ltanWidth && circleY<ltanY+ltanHeight && circleY+circleHeight>ltanY){
-        explode(ltanX,ltanY);
-        ltanX=900;
+      if(circleX+circleWidth>ltanP.x && circleX<ltanP.x+ltanP.width && circleY<ltanP.y+ltanP.height && circleY+circleHeight>ltanP.y){
+        explode(ltanP.x,ltanP.y);
+        ltanP.x=900;
         score++;
         document.querySelector('#score').innerHTML=score;
     }
