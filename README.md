@@ -1,6 +1,6 @@
 # Tank Top
 
-[Click here to see deployed game](https://motorbreath84.github.io/Tank-Top/)
+[Click here to see deployed game](https://eurico-moutinho.github.io/Tank-Top/)
 
 ## Description
 
@@ -61,5 +61,5 @@ Tank Top is a game where the player command a tank deployed on the begining of t
 ## Links
 
 - [Slides Link](http://slides.com)
-- [Github repository Link](https://github.com/MotorBreath84/Tank-Top)
-- [Deployment Link](https://motorbreath84.github.io/Tank-Top/)
+- [Github repository Link](https://github.com/eurico-moutinho/Tank-Top)
+- [Deployment Link](https://eurico-moutinho.github.io/Tank-Top/)
